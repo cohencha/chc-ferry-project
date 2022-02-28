@@ -13,98 +13,38 @@ var map = new mapboxgl.Map({
 });
 
 map.on('load', function() {
-  map.addSource('ferry-info', {
+  map.addSource('nyc-mhi', {
     type: 'geojson',
-    // Use a URL for the value for the `data` property.
-    data: './data/ferry-stops.geojson'
-  });
+    data: './data/nyc-mhi.geojson'
+  })
 
-  // map.addSource('earthquakes', {
-  //   type: 'geojson',
-  //   // Use a URL for the value for the `data` property.
-  //   data: './data/earthquakes.geojson'
-  // });
 
-  map.addLayer({
-    'id': 'ferry-all',
-    'type': 'fill',
-    'source': 'ferry-info',
-    'paint': {
-      'fill-outline-color': '#ccc',
-    }
-  });
-
-  map.addLayer({
-    'id': 'stops-circle',
-    'type': 'circle',
-    'source': 'ferry-info',
-    'paint': {
-      'circle-color': 'steelblue',
-      'circle-opacity': 0.9,
-      'circle-radius': 1.01, 
-    }
-  });
-//
-//   map.setPaintProperty('nyu-study-area-fill', 'fill-color', [
-//     'match',
-//     ['get', 'LandUse'],
-//     '01', '#f4f455',
-//     '02', '#f7d496',
-//     '03', '#FF9900',
-//     '04', '#f7cabf',
-//     '05', '#ea6661',
-//     '06', '#d36ff4',
-//     '07', '#dac0e8',
-//     '08', '#5CA2D1',
-//     '09', '#8ece7c',
-//     '10', '#bab8b6',
-//     '11', '#5f5f60',
-//     '12', '#5f5f60',
-//     /* other */ '#000'
-//   ]);
-//
-//   // Create a popup, but don't add it to the map yet.
-//   const popup = new mapboxgl.Popup({
-//     closeButton: false,
-//     closeOnClick: false
-//   });
-//
-//   map.on('mouseenter', 'earthquakes-circle', function(e) {
-//     // Change the cursor style as a UI indicator.
-//     map.getCanvas().style.cursor = 'pointer';
-//
-//     // Copy coordinates array.
-//     const coordinates = e.features[0].geometry.coordinates.slice();
-//     const magnitude = e.features[0].properties.mag;
-//     const depth = e.features[0].properties.depth;
-//     const time = e.features[0].properties.time;
-//     const place = e.features[0].properties.place;
-//
-//     // Ensure that if the map is zoomed out such that multiple
-//     // copies of the feature are visible, the popup appears
-//     // over the copy being pointed to.
-//     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-//       coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-//     }
-//
-//     var popupContent = `
-//       <h3>${time}</h3>
-//       <ul>
-//         <li><strong>Magnitude:</strong> ${magnitude}</li>
-//         <li><strong>Depth:</strong> ${depth}</li>
-//         <li><strong>Place:</strong> ${place}</li>
-//       </ul>
-//     `
-//
-//     // Populate the popup and set its coordinates
-//     // based on the feature found.
-//     popup.setLngLat(coordinates).setHTML(popupContent).addTo(map);
-//   });
-//
-//   map.on('mouseleave', 'earthquakes-circle', function() {
-//     map.getCanvas().style.cursor = '';
-//     popup.remove();
-//   });
-
+    map.addLayer({
+      'id': 'nyc-mhi-fill',
+      'type': 'fill',
+      'source': 'nyc-mhi',
+      'layout': {
+        'visibility': 'visible'
+      },
+      'paint': {
+        'fill-color': [
+          'interpolate',
+          ['linear'],
+          ['get', 'incomeedit_Refactored_estimate'],
+          0,
+          '#edf8fb',
+          33966,
+          '#b2e2e2',
+          55898,
+          '#66c2a4',
+          70390,
+          '#2ca25f',
+          93366,
+          '#006d2c',
+        ],
+        'fill-outline-color': '#ccc',
+        'fill-opacity': 0.75
+      }
+    });
 
 })
