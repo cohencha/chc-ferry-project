@@ -13,11 +13,23 @@ var map = new mapboxgl.Map({
 });
 
 map.on('load', function() {
+    map.addSource('nycferrystops', {
+      type: 'geojson',
+      data: './data/ferry-stops-update.geojson'
+    })
+
+    nycferrystops.forEach(function(nycferrystops) {
+      var mapMarker = new mapboxgl.Marker({
+        color: '#2596be'
+      })
+    .setLngLat([nycferrystops.geometry.coordinates])
+    .addTo(map);
+    })
+
   map.addSource('nyc-mhi', {
     type: 'geojson',
     data: './data/nyc-mhi.geojson'
   })
-
 
     map.addLayer({
       'id': 'nyc-mhi-fill',
