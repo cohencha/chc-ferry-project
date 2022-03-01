@@ -14,17 +14,13 @@ var map = new mapboxgl.Map({
   // maxZoom: 14
 });
 
-  map.addSource('nyc-ferry-pier', {
-    type: 'geojson',
-    data: './data/ferry-stops-updates.geojson'
-  })
 
-    nycferrystop.forEach(function(nycferrystops) {
-      var mapMarker = new mapboxgl.Marker({
-        color: '#2596be'
-      })
-      .setLngLat(nycferrystops.geometries.coordinates)
-      .addTo(map);
+  nycferrystop.forEach(function(nycferrystops) {
+    var mapMarker = new mapboxgl.Marker({
+      color: '#2596be'
+    })
+    .setLngLat(nycferrystops.geometries.coordinates)
+    .addTo(map);
   })
 
   // map.addSource('nyc-mhi', {
