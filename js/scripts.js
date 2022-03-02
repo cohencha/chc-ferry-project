@@ -14,12 +14,11 @@ var map = new mapboxgl.Map({
   // maxZoom: 14
 });
 
-
-  nycferrystop.forEach(function(nycferrystops) {
+  nycferrystops.features.forEach(function(nycferrystop) {
     var mapMarker = new mapboxgl.Marker({
       color: '#2596be'
     })
-    .setLngLat(nycferrystops.geometries.coordinates)
+    .setLngLat(nycferrystop.geometry.coordinates)
     .addTo(map);
   })
 
